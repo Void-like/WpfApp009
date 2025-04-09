@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using WpfApp009;
 
 namespace WpfApp009
 {
@@ -33,7 +34,6 @@ namespace WpfApp009
         {
             _authService = new AuthService();
             LoginCommand = new RelayCommand(Login);
-            ExitCommand = new RelayCommand(Exit);
         }
 
         private void Login(object parameter)
@@ -44,26 +44,51 @@ namespace WpfApp009
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            var user = _authService.Authenticate(Username, Password);
 
-            if (_authService.Authenticate(Username, Password))
+            if (user != null)
             {
-                var mainView = new MainView();
-                mainView.Show();
-
+                if (user.IsAdmin)
+                {
+                    var adminView = new AdminView();
+                    adminView.Show();
+                }
+                else
+                {
+                    var mainView = new MainView();
+                    mainView.Show();
+                }
                 if (parameter is Window window)
                     window.Close();
             }
             else
             {
-                MessageBox.Show("Неверные учетные данные", "Ошибка",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("неверный логин или пароль");
             }
-        }
-
-        private void Exit(object parameter)
-        {
-            if (parameter is Window window)
-                window.Close();
         }
     }
 }
+
+            //if (_authService.Authenticate(Username, Password))
+            //{
+            //    var mainView = new MainView();
+            ////    mainView.Show();
+
+        //    if (parameter is Window window)
+        //        window.Close();
+        //    {
+        
+        //    else
+        //    {
+        //        MessageBox.Show("Неверные учетные данные", "Ошибка",
+        //            MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //}
+
+//        private void Exit(object parameter)
+//        {
+//            if (parameter is Window window)
+//                window.Close();
+//        }
+//    }
+//}

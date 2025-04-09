@@ -14,9 +14,9 @@ namespace WpfApp009
             new User { Username = "user", Password = "user123",  IsAdmin = true}
         };
 
-        public bool Authenticate(string username, string password)
+        public User Authenticate(string username, string password)
         {
-            return _users.Any(u => u.Username == username && u.Password == password);
+            return _users.FirstOrDefault(u => u.Username == username && u.Password == password);
         }   
     }
 }

@@ -19,6 +19,12 @@ namespace WpfApp009
         public MainWindow()
         {
             InitializeComponent();
+            PasswordBox.PasswordChanged += PasswordBox_PasswordChanged;
+        }
+        private void PasswordBox_PasswordChanged(object sender, System.EventArgs e)
+        {
+            if (DataContext is LoginViewModel vm)
+                vm.Password = PasswordBox.Password;
         }
     }
 }

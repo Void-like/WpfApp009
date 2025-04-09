@@ -33,8 +33,8 @@
                     <Button Content="Войти" 
                             Command="{Binding LoginCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
-                            Width="80" />
-                    <!--Style="{StaticResource ModernButton}"/>-->
+                            Width="80"
+                            Style="{StaticResource ModernButton}"/>
                 </StackPanel>
             </StackPanel>
         </Border>
